@@ -1,0 +1,280 @@
+/* Sección de la tabla */
+.tableSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  overflow: hidden;
+}
+
+/* Header de la tabla */
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tableTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleIcon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.toggleButton {
+  width: auto !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+}
+
+/* Contenedor de la tabla con scroll */
+.tableContainer {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+/* Tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tableHead {
+  background-color: #f9fafb;
+}
+
+.th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.tr {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tr:hover {
+  background-color: #f9fafb;
+}
+
+.trClickable {
+  cursor: pointer;
+}
+
+.trClickable:hover {
+  background-color: #eff6ff;
+}
+
+.td {
+  padding: 12px 16px;
+  color: #6b7280;
+  vertical-align: middle;
+}
+
+.tdPlaca {
+  font-weight: 600;
+  color: #111827;
+  text-transform: uppercase;
+}
+
+.tdValue {
+  font-weight: 500;
+  color: #059669;
+}
+
+/* Tipo de vehículo */
+.vehicleType {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vehicleIcon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.motoIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.vehicleTypeName {
+  text-transform: capitalize;
+}
+
+/* Estado vacío */
+.emptyState {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.emptyIcon {
+  color: #9ca3af;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.emptyTitle {
+  color: #6b7280;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+}
+
+.emptySubtitle {
+  color: #9ca3af;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Footer de la tabla */
+.tableFooter {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footerText {
+  color: #6b7280;
+  font-size: 14px;
+  margin: 0;
+}
+
+.footerText strong {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+/* Scrollbar personalizado */
+.tableContainer::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Responsividad */
+@media (max-width: 968px) {
+  .tableSection {
+    padding: 20px;
+  }
+
+  .tableTitle {
+    font-size: 18px;
+  }
+
+  .th,
+  .td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableSection {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .tableHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .toggleButton {
+    width: 100% !important;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .th,
+  .td {
+    padding: 8px 10px;
+  }
+
+  .emptyState {
+    padding: 48px 16px;
+  }
+
+  .emptyIcon {
+    margin-bottom: 12px;
+  }
+
+  .emptyTitle {
+    font-size: 16px;
+  }
+
+  .emptySubtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* En móviles muy pequeños, hacer tabla scrolleable */
+  .table {
+    min-width: 600px;
+  }
+
+  .tableContainer {
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tr {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Estados de carga */
+.tableLoading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.tableLoading .table {
+  filter: blur(2px);
+}

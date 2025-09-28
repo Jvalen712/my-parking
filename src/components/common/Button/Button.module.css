@@ -1,0 +1,100 @@
+/* Estilos base del botón */
+.button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  font-family: inherit;
+  outline: none;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.button:disabled:hover {
+  transform: none;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Variantes de colores */
+.buttonPrimary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.buttonPrimary:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.buttonSuccess {
+  background-color: #059669;
+  color: white;
+}
+
+.buttonSuccess:hover:not(:disabled) {
+  background-color: #047857;
+}
+
+.buttonDanger {
+  background-color: #dc2626;
+  color: white;
+}
+
+.buttonDanger:hover:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+.buttonSecondary {
+  background-color: #4b5563;
+  color: white;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background-color: #374151;
+}
+
+.buttonPurple {
+  background-color: #7c3aed;
+  color: white;
+}
+
+.buttonPurple:hover:not(:disabled) {
+  background-color: #6d28d9;
+}
+
+/* Contenedor del icono */
+.buttonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Variante de tamaño pequeño (opcional) */
+.buttonSmall {
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+/* Variante de ancho automático (opcional) */
+.buttonAuto {
+  width: auto;
+}

@@ -1,0 +1,225 @@
+/* Contenedor principal */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+/* Tamaños */
+.emptySmall {
+  padding: 24px 16px;
+  gap: 8px;
+}
+
+.emptyMedium {
+  padding: 48px 24px;
+  gap: 12px;
+}
+
+.emptyLarge {
+  padding: 80px 32px;
+  gap: 16px;
+}
+
+/* Contenedor del icono */
+.iconContainer {
+  color: #9ca3af;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptySmall .iconContainer {
+  font-size: 32px;
+}
+
+.emptyMedium .iconContainer {
+  font-size: 48px;
+}
+
+.emptyLarge .iconContainer {
+  font-size: 64px;
+}
+
+/* Título */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.emptySmall .title {
+  font-size: 16px;
+}
+
+.emptyLarge .title {
+  font-size: 20px;
+}
+
+/* Descripción */
+.description {
+  font-size: 14px;
+  color: #9ca3af;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+.emptySmall .description {
+  font-size: 13px;
+  max-width: 300px;
+}
+
+.emptyLarge .description {
+  font-size: 16px;
+  max-width: 500px;
+}
+
+/* Contenedor de acción */
+.actionContainer {
+  margin-top: 16px;
+}
+
+.emptySmall .actionContainer {
+  margin-top: 12px;
+}
+
+.emptyLarge .actionContainer {
+  margin-top: 24px;
+}
+
+/* Botón de acción */
+.actionButton {
+  padding: 10px 20px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.actionButton:hover {
+  background-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+/* Variantes de color */
+.emptyError .iconContainer {
+  color: #ef4444;
+}
+
+.emptyError .title {
+  color: #dc2626;
+}
+
+.emptyWarning .iconContainer {
+  color: #f59e0b;
+}
+
+.emptyWarning .title {
+  color: #d97706;
+}
+
+.emptyInfo .iconContainer {
+  color: #3b82f6;
+}
+
+.emptyInfo .title {
+  color: #2563eb;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.emptyState {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .emptyMedium {
+    padding: 40px 20px;
+  }
+
+  .emptyLarge {
+    padding: 64px 24px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .emptyMedium {
+    padding: 32px 16px;
+  }
+
+  .emptyLarge {
+    padding: 48px 20px;
+  }
+
+  .iconContainer {
+    margin-bottom: 4px;
+  }
+
+  .actionButton {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}
+
+/* Variante con fondo */
+.emptyWithBackground {
+  background-color: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #e5e7eb;
+}
+
+/* Variante compacta horizontal */
+.emptyCompact {
+  flex-direction: row;
+  text-align: left;
+  padding: 16px;
+  gap: 16px;
+}
+
+.emptyCompact .iconContainer {
+  margin-bottom: 0;
+}
+
+.emptyCompact .title {
+  font-size: 14px;
+}
+
+.emptyCompact .description {
+  font-size: 12px;
+}
