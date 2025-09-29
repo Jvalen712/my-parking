@@ -4,7 +4,7 @@ import styles from './Header.module.css';
 
 const Header = ({
   title = "Parking management system",
-  subtitle = "Manage vehicle entry and exit efficiently.",
+  subtitle = "Sistema para la gestion de entrada y salida de vehiculos.",
   showActions = false,
   onSettingsClick,
   className = '',
@@ -13,13 +13,13 @@ const Header = ({
   // Obtener fecha y hora actual
   const getCurrentDateTime = () => {
     const now = new Date();
-    const date = now.toLocaleDateString('en-US', {
+    const date = now.toLocaleDateString('es-CO', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
-    const time = now.toLocaleTimeString('en-US', {
+    const time = now.toLocaleTimeString('es-CO', {
       hour: '2-digit',
       minute: '2-digit'
     });

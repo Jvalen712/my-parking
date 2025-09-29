@@ -21,7 +21,7 @@ const VehicleForm = ({
       <div className={styles.formContent}>
         {/* Campo Placa */}
         <Input
-          label="vehicle registrations"
+          label="Placa del vehiculo"
           name="placa"
           value={formData.placa}
           onChange={onInputChange}
@@ -65,7 +65,7 @@ const VehicleForm = ({
 
         {/* Campo Hora de Ingreso */}
         <Input
-          label="entry time"
+          label="Hora"
           name="horaIngreso"
           type="time"
           value={formData.horaIngreso}
@@ -75,7 +75,7 @@ const VehicleForm = ({
 
         {/* Campo Valor Matrícula */}
         <Input
-          label="value per hour"
+          label="Valor por hora"
           name="valorMatricula"
           type="number"
           value={formData.valorMatricula}
@@ -87,7 +87,7 @@ const VehicleForm = ({
 
         {/* Campo Número de Factura */}
         <Input
-          label="invoice number"
+          label="Numero de factura"
           name="numeroFactura"
           value={formData.numeroFactura}
           onChange={onInputChange}
@@ -101,6 +101,7 @@ const VehicleForm = ({
             variant="success"
             onClick={onIngresarVehiculo}
             icon={<Plus size={20} />}
+            title="Haz click una vez llenes los campos solicitados"
           >
             Ingresar Vehículo
           </Button>
@@ -109,6 +110,8 @@ const VehicleForm = ({
             variant="danger"
             onClick={onSacarVehiculo}
             icon={<Minus size={20} />}
+            title="Haz click una vez llenes los campos solicitados"
+        
           >
             Sacar Vehículo
           </Button>
@@ -117,6 +120,7 @@ const VehicleForm = ({
             variant="secondary"
             onClick={onLimpiarCasillas}
             icon={<RotateCcw size={20} />}
+            title= "Se borraran los datos ingresados"
           >
             Limpiar Casillas
           </Button>
