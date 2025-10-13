@@ -189,13 +189,17 @@ input, textarea, select {
   }
 
   .app-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+     display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
   }
 
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 12px;
+    
   }
 
   .main-content {
