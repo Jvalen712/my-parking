@@ -81,6 +81,7 @@ input, textarea, select {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
 
 /* Grid de estadísticas */
@@ -88,6 +89,7 @@ input, textarea, select {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+  width: 100%;
 }
 
 /* Utilidades de layout */

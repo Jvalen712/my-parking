@@ -1,48 +1,63 @@
 import { useState, useEffect } from 'react';
 
 /**
- * Hook personalizado para manejar el formulario de vehículos
- * @param {Object} options - Opciones de configuración
- * @returns {Object} - Estado y métodos del formulario
+ * Custom hook to manage vehicle form
+ * @param {Object} options - Configuration options
+ * @returns {Object} - Form state and methods
  */
 export const useVehicleForm = ({ 
-  ingresarVehiculo, 
-  sacarVehiculo,
+  addVehicle, 
+  removeVehicle,
   onSuccess,
   onError 
 } = {}) => {
-  // Estado inicial del formulario
+  // Generate automatic invoice number
+  const generateInvoiceNumber = () => {
+    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const number = Math.floor(Math.random() * 99999) + 1;
+    const letter = letters.charAt(Math.floor(Math.random() * letters.length));
+    return `F${letter}-${number.toString().padStart(5, '0')}`;
+  };
+
   const initialFormState = {
-    placa: '',
-    tipoVehiculo: 'carro',
-    horaIngreso: '',
-    valorMatricula: '',
-    numeroFactura: ''
+    plate: '',
+    vehicleType: 'car',
+    entryTime: '',
+    registrationValue: '5000',
+    invoiceNumber: generateInvoiceNumber()
   };
 
   const [formData, setFormData] = useState(initialFormState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Inicializar hora actual al montar
+  // Initialize current time on mount
   useEffect(() => {
     const now = new Date();
     const timeString = now.toTimeString().slice(0, 5);
-    setFormData(prev => ({ ...prev, horaIngreso: timeString }));
+    setFormData(prev => ({ 
+      ...prev, 
+      entryTime: timeString,
+      invoiceNumber: generateInvoiceNumber()
+    }));
   }, []);
 
-  // Actualizar hora cada minuto (opcional)
+  // Update rate automatically based on vehicle type
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const timeString = now.toTimeString().slice(0, 5);
-      setFormData(prev => ({ ...prev, horaIngreso: timeString }));
-    }, 60000); // Actualizar cada minuto
+    const rates = {
+      'car': '5000',
+      'motorcycle': '1500'
+    };
+    
+    if (formData.vehicleType && rates[formData.vehicleType]) {
+      setFormData(prev => ({
+        ...prev,
+        registrationValue: rates[formData.vehicleType]
+      }));
+    }
+  }, [formData.vehicleType]);
 
-    return () => clearInterval(interval);
-  }, []);
-
-  // Manejar cambios en inputs
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     
@@ -51,7 +66,7 @@ export const useVehicleForm = ({
       [name]: value
     }));
 
-    // Limpiar error del campo si existe
+    // Clear error if exists
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -60,24 +75,25 @@ export const useVehicleForm = ({
     }
   };
 
-  // Validar campo individual
+  // Validate individual field
   const validateField = (name, value) => {
     switch (name) {
-      case 'placa':
+      case 'plate':
         if (!value) return 'La placa es requerida';
         if (value.length < 5) return 'La placa debe tener al menos 5 caracteres';
+        if (value.length > 20) return 'La placa no puede tener más de 20 caracteres';
         return '';
       
-      case 'valorMatricula':
+      case 'registrationValue':
         if (!value) return 'El valor es requerido';
         if (Number(value) <= 0) return 'El valor debe ser mayor a 0';
         return '';
       
-      case 'numeroFactura':
+      case 'invoiceNumber':
         if (!value) return 'El número de factura es requerido';
         return '';
       
-      case 'horaIngreso':
+      case 'entryTime':
         if (!value) return 'La hora es requerida';
         return '';
       
@@ -86,7 +102,7 @@ export const useVehicleForm = ({
     }
   };
 
-  // Validar formulario completo
+  // Validate complete form
   const validateForm = () => {
     const newErrors = {};
     
@@ -101,108 +117,96 @@ export const useVehicleForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  // Limpiar formulario
-  const limpiarCasillas = () => {
+  // Clear form
+  const clearForm = () => {
     const now = new Date();
     const timeString = now.toTimeString().slice(0, 5);
     
     setFormData({
-      ...initialFormState,
-      horaIngreso: timeString
+      plate: '',
+      vehicleType: 'car',
+      entryTime: timeString,
+      registrationValue: '5000',
+      invoiceNumber: generateInvoiceNumber()
     });
     
     setErrors({});
     setIsSubmitting(false);
   };
 
-  // Manejar ingreso de vehículo
-  const handleIngresarVehiculo = async () => {
+  // Handle add vehicle
+  const handleAddVehicle = async () => {
     if (!validateForm()) {
       onError?.('Por favor, complete todos los campos correctamente');
       return;
     }
 
-    if (!ingresarVehiculo) {
-      console.error('ingresarVehiculo function not provided');
+    if (!addVehicle) {
+      console.error('addVehicle function not provided');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const result = ingresarVehiculo(formData);
+      const result = addVehicle(formData);
       
       if (result.success) {
-        limpiarCasillas();
-        onSuccess?.(result.message, result.vehiculo);
+        clearForm();
+        onSuccess?.(result.message, result.vehicle);
       } else {
         onError?.(result.message);
       }
     } catch (error) {
-      console.error('Error al ingresar vehículo:', error);
+      console.error('Error adding vehicle:', error);
       onError?.('Error al ingresar el vehículo');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Manejar salida de vehículo
-  const handleSacarVehiculo = async () => {
-    if (!formData.placa) {
+  // Handle remove vehicle
+  const handleRemoveVehicle = async () => {
+    if (!formData.plate) {
       onError?.('Por favor, ingrese la placa del vehículo a retirar');
       return;
     }
 
-    if (!sacarVehiculo) {
-      console.error('sacarVehiculo function not provided');
+    if (!removeVehicle) {
+      console.error('removeVehicle function not provided');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const result = sacarVehiculo(formData.placa);
+      const result = removeVehicle(formData.plate);
       
       if (result.success) {
-        limpiarCasillas();
-        onSuccess?.(result.message, result.vehiculo);
+        clearForm();
+        onSuccess?.(result.message, result.vehicle);
       } else {
         onError?.(result.message);
       }
     } catch (error) {
-      console.error('Error al sacar vehículo:', error);
+      console.error('Error removing vehicle:', error);
       onError?.('Error al retirar el vehículo');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Resetear formulario a estado inicial
-  const resetForm = () => {
-    limpiarCasillas();
-  };
-
-  // Setear datos del formulario manualmente
-  const setFormValues = (values) => {
-    setFormData(prev => ({
-      ...prev,
-      ...values
-    }));
-  };
-
   return {
-    // Estado del formulario
+    // Form state
     formData,
     errors,
     isSubmitting,
 
-    // Métodos de manejo
+    // Methods
     handleInputChange,
-    handleIngresarVehiculo,
-    handleSacarVehiculo,
-    limpiarCasillas,
-    resetForm,
-    setFormValues,
+    handleAddVehicle,
+    handleRemoveVehicle,
+    clearForm,
     validateForm
   };
 };

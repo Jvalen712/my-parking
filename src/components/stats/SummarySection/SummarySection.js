@@ -2,29 +2,29 @@ import React from 'react';
 import styles from './SummarySection.module.css';
 
 const SummarySection = ({
-  vehiculosActivos = [],
-  vehiculosHoy = [],
+  activeVehicles = [],
+  todaysVehicles = [],
   title = "Resumen del Parqueadero",
   showRevenue = true,
   additionalStats = [],
   className = '',
   ...props
 }) => {
-  // Calcular ingresos totales del día
-  const calcularIngresosHoy = () => {
-    return vehiculosHoy.reduce((total, vehiculo) => {
-      return total + (Number(vehiculo.valorMatricula) || 0);
+  // Calculate today's total revenue
+  const calculateTodaysRevenue = () => {
+    return todaysVehicles.reduce((total, vehicle) => {
+      return total + (Number(vehicle.registrationValue) || 0);
     }, 0);
   };
 
-  // Calcular ingresos totales de vehículos activos
-  const calcularIngresosActivos = () => {
-    return vehiculosActivos.reduce((total, vehiculo) => {
-      return total + (Number(vehiculo.valorMatricula) || 0);
+  // Calculate active vehicles revenue
+  const calculateActiveRevenue = () => {
+    return activeVehicles.reduce((total, vehicle) => {
+      return total + (Number(vehicle.registrationValue) || 0);
     }, 0);
   };
 
-  // Formatear moneda
+  // Format currency
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('es-CO', {
       style: 'currency',
@@ -34,19 +34,19 @@ const SummarySection = ({
     }).format(amount);
   };
 
-  // Calcular estadísticas por tipo de vehículo
-  const getVehiculosPorTipo = () => {
-    const carros = vehiculosActivos.filter(v => v.tipoVehiculo === 'carro').length;
-    const motos = vehiculosActivos.filter(v => v.tipoVehiculo === 'moto').length;
-    return { carros, motos };
+  // Calculate statistics by vehicle type
+  const getVehiclesByType = () => {
+    const cars = activeVehicles.filter(v => v.vehicleType === 'car').length;
+    const motorcycles = activeVehicles.filter(v => v.vehicleType === 'motorcycle').length;
+    return { cars, motorcycles };
   };
 
-  const { carros, motos } = getVehiculosPorTipo();
-  const ingresosHoy = calcularIngresosHoy();
-  const ingresosActivos = calcularIngresosActivos();
+  const { cars, motorcycles } = getVehiclesByType();
+  const todaysRevenue = calculateTodaysRevenue();
+  const activeRevenue = calculateActiveRevenue();
 
-  // No mostrar si no hay vehículos activos
-  if (vehiculosActivos.length === 0) {
+  // Don't show if no active vehicles
+  if (activeVehicles.length === 0) {
     return null;
   }
 
@@ -57,37 +57,37 @@ const SummarySection = ({
       </div>
 
       <div className={styles.statsGrid}>
-        {/* Total de vehículos activos */}
+        {/* Total active vehicles */}
         <div className={styles.statItem}>
           <p className={styles.statLabel}>Total de vehículos activos:</p>
-          <p className={styles.statValue}>{vehiculosActivos.length}</p>
+          <p className={styles.statValue}>{activeVehicles.length}</p>
         </div>
 
-        {/* Desglose por tipo */}
+        {/* Breakdown by type */}
         <div className={styles.statItem}>
           <p className={styles.statLabel}>Carros / Motos:</p>
           <p className={styles.statValue}>
-            {carros} / {motos}
+            {cars} / {motorcycles}
           </p>
         </div>
 
-        {/* Ingresos de vehículos activos */}
+        {/* Active vehicles revenue */}
         {showRevenue && (
           <div className={styles.statItem}>
             <p className={styles.statLabel}>Ingresos actuales:</p>
-            <p className={styles.statValue}>{formatCurrency(ingresosActivos)}</p>
+            <p className={styles.statValue}>{formatCurrency(activeRevenue)}</p>
           </div>
         )}
 
-        {/* Ingresos estimados hoy */}
+        {/* Today's estimated revenue */}
         {showRevenue && (
           <div className={styles.statItem}>
             <p className={styles.statLabel}>Ingresos estimados hoy:</p>
-            <p className={styles.statValue}>{formatCurrency(ingresosHoy)}</p>
+            <p className={styles.statValue}>{formatCurrency(todaysRevenue)}</p>
           </div>
         )}
 
-        {/* Estadísticas adicionales personalizadas */}
+        {/* Additional custom statistics */}
         {additionalStats.map((stat, index) => (
           <div key={index} className={styles.statItem}>
             <p className={styles.statLabel}>{stat.label}:</p>

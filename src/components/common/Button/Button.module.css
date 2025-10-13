@@ -1,20 +1,20 @@
-/* Estilos base del botón */
 .button {
-  width: 100%;
-  padding: 12px 16px;
+  width: 100%; /* Reducido al 50% */
+  padding: 10px 16px;
   border: none;
   border-radius: 8px;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   font-family: inherit;
   outline: none;
+  margin-left: auto; /* Empuja el botón a la derecha */
 }
 
 .button:disabled {
@@ -35,7 +35,6 @@
   transform: translateY(0);
 }
 
-/* Variantes de colores */
 .buttonPrimary {
   background-color: #3b82f6;
   color: white;
@@ -81,20 +80,8 @@
   background-color: #6d28d9;
 }
 
-/* Contenedor del icono */
 .buttonIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* Variante de tamaño pequeño (opcional) */
-.buttonSmall {
-  padding: 8px 12px;
-  font-size: 14px;
-}
-
-/* Variante de ancho automático (opcional) */
-.buttonAuto {
-  width: auto;
 }
