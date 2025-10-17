@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Car, Plus, Minus, RotateCcw } from 'lucide-react';
 import Button from '../../common/Button';
 import Input from '../../common/Input';
@@ -7,10 +7,39 @@ import styles from './VehicleForm.module.css';
 const VehicleForm = ({ 
   formData, 
   onInputChange, 
-  onIngresarVehiculo, 
-  onSacarVehiculo, 
-  onLimpiarCasillas 
+  onAddVehicle, 
+  onRemoveVehicle, 
+  onClearForm 
 }) => {
+  // Update rate automatically based on vehicle type
+  useEffect(() => {
+    const rates = {
+      'car': '5000',
+      'motorcycle': '1500'
+    };
+    
+    if (formData.vehicleType && rates[formData.vehicleType]) {
+      const event = {
+        target: {
+          name: 'registrationValue',
+          value: rates[formData.vehicleType]
+        }
+      };
+      onInputChange(event);
+    }
+  }, [formData.vehicleType, onInputChange]);
+
+  // Handle plate change with 20 character limit
+  const handlePlateChange = (e) => {
+    const value = e.target.value.slice(0, 20);
+    onInputChange({
+      target: {
+        name: 'plate',
+        value: value
+      }
+    });
+  };
+
   return (
     <div className={styles.formContainer}>
       <h2 className={styles.formTitle}>
@@ -19,18 +48,18 @@ const VehicleForm = ({
       </h2>
 
       <div className={styles.formContent}>
-        {/* Campo Placa */}
+        {/* Plate field */}
         <Input
-          label="Placa del vehiculo"
-          name="placa"
-          value={formData.placa}
-          onChange={onInputChange}
+          label="Placa del Vehículo"
+          name="plate"
+          value={formData.plate}
+          onChange={handlePlateChange}
           placeholder="Ej: ABC123"
           required
           style={{ textTransform: 'uppercase' }}
         />
 
-        {/* Tipo de Vehículo */}
+        {/* Vehicle type */}
         <div className={styles.formField}>
           <label className={styles.label}>
             Tipo de Vehículo *
@@ -39,88 +68,88 @@ const VehicleForm = ({
             <label className={styles.radioOption}>
               <input
                 type="radio"
-                name="tipoVehiculo"
-                value="carro"
-                checked={formData.tipoVehiculo === 'carro'}
+                name="vehicleType"
+                value="car"
+                checked={formData.vehicleType === 'car'}
                 onChange={onInputChange}
                 className={styles.radioInput}
               />
-              <Car className={styles.radioIcon} size={20} />
+              <Car className={styles.radioIcon} size={18} />
               <span>Carro</span>
+              <span className={styles.rate}>($5.000/h)</span>
             </label>
             <label className={styles.radioOption}>
               <input
                 type="radio"
-                name="tipoVehiculo"
-                value="moto"
-                checked={formData.tipoVehiculo === 'moto'}
+                name="vehicleType"
+                value="motorcycle"
+                checked={formData.vehicleType === 'motorcycle'}
                 onChange={onInputChange}
                 className={styles.radioInput}
               />
-              <span className={styles.motoIcon}>🏍️</span>
+              <span className={styles.motorcycleIcon}>🏍️</span>
               <span>Moto</span>
+              <span className={styles.rate}>($1.500/h)</span>
             </label>
           </div>
         </div>
 
-        {/* Campo Hora de Ingreso */}
+        {/* Entry time field - READ ONLY */}
         <Input
-          label="Hora"
-          name="horaIngreso"
+          label="Hora de Ingreso"
+          name="entryTime"
           type="time"
-          value={formData.horaIngreso}
+          value={formData.entryTime}
           onChange={onInputChange}
           required
+          disabled
         />
 
-        {/* Campo Valor Matrícula */}
+        {/* Registration value field - READ ONLY */}
         <Input
-          label="Valor por hora"
-          name="valorMatricula"
+          label="Valor de la Matrícula"
+          name="registrationValue"
           type="number"
-          value={formData.valorMatricula}
+          value={formData.registrationValue}
           onChange={onInputChange}
-          placeholder="5000"
-          icon={<span className={styles.currencyIcon}>$</span>}
+          icon={<span>$</span>}
           required
+          disabled
         />
 
-        {/* Campo Número de Factura */}
+        {/* Invoice number field - READ ONLY */}
         <Input
-          label="Numero de factura"
-          name="numeroFactura"
-          value={formData.numeroFactura}
+          label="Número de Factura"
+          name="invoiceNumber"
+          value={formData.invoiceNumber}
           onChange={onInputChange}
-          placeholder="Ej: F001-123"
+          placeholder="Auto"
           required
+          disabled
         />
 
-        {/* Botones */}
+        {/* Buttons */}
         <div className={styles.buttonContainer}>
           <Button
             variant="success"
-            onClick={onIngresarVehiculo}
-            icon={<Plus size={20} />}
-            title="Haz click una vez llenes los campos solicitados"
+            onClick={onAddVehicle}
+            icon={<Plus size={16} />}
           >
             Ingresar Vehículo
           </Button>
           
           <Button
             variant="danger"
-            onClick={onSacarVehiculo}
-            icon={<Minus size={20} />}
-            title="Haz click una vez llenes los campos solicitados"
-        
+            onClick={onRemoveVehicle}
+            icon={<Minus size={16} />}
           >
             Sacar Vehículo
           </Button>
           
           <Button
             variant="secondary"
-            onClick={onLimpiarCasillas}
-            icon={<RotateCcw size={20} />}
-            title= "Se borraran los datos ingresados"
+            onClick={onClearForm}
+            icon={<RotateCcw size={16} />}
           >
             Limpiar Casillas
           </Button>

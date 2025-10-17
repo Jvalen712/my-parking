@@ -5,59 +5,73 @@ import StatusBadge from '../../common/StatusBadge';
 import styles from './VehicleTable.module.css';
 
 const VehicleTable = ({
-  vehiculosActivos = [],
-  historialVehiculos = [],
-  showHistorial: initialShowHistorial = false,
+  activeVehicles = [],
+  vehicleHistory = [],
+  showHistory: initialShowHistory = false,
   onVehicleClick,
   className = '',
   ...props
 }) => {
-  const [mostrarHistorial, setMostrarHistorial] = useState(initialShowHistorial);
+  const [showHistory, setShowHistory] = useState(initialShowHistory);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  // Obtener fecha actual para filtrar vehículos del día
+  // Get current date
   const getCurrentDate = () => {
     return new Date().toLocaleDateString('es-CO');
   };
 
-  // Filtrar vehículos del día actual
-  const vehiculosHoy = vehiculosActivos.filter(
-    vehiculo => vehiculo.fechaIngreso === getCurrentDate()
+  // Filter today's vehicles
+  const todaysVehicles = activeVehicles.filter(
+    vehicle => vehicle.entryDate === getCurrentDate()
   );
 
-  // Determinar qué datos mostrar
-  const vehiculosAMostrar = mostrarHistorial ? historialVehiculos : vehiculosHoy;
+  // Determine which data to show
+  const vehiclesToShow = showHistory ? vehicleHistory : todaysVehicles;
 
-  // Renderizar icono según tipo de vehículo
-  const renderVehicleIcon = (tipo) => {
-    if (tipo === 'carro') {
-      return <Car className={styles.vehicleIcon} size={16} />;
-    }
-    return <span className={styles.motoIcon}>🏍️</span>;
+  // Calculate pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const paginatedVehicles = vehiclesToShow.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(vehiclesToShow.length / itemsPerPage);
+
+  // Reset page when switching views
+  const handleToggleHistory = () => {
+    setShowHistory(!showHistory);
+    setCurrentPage(1);
   };
 
-  // Formatear moneda
+  // Render vehicle icon based on type
+  const renderVehicleIcon = (type) => {
+    if (type === 'car') {
+      return <Car className={styles.vehicleIcon} size={16} />;
+    }
+    return <span className={styles.motorcycleIcon}>🏍️</span>;
+  };
+
+  // Format currency
   const formatCurrency = (amount) => {
     return `$${Number(amount).toLocaleString('es-CO')}`;
   };
 
-  // Renderizar estado vacío
+  // Render empty state
   const renderEmptyState = () => {
     return (
       <div className={styles.emptyState}>
         <div className={styles.emptyIcon}>
-          {mostrarHistorial ? (
+          {showHistory ? (
             <History size={48} />
           ) : (
             <Clock size={48} />
           )}
         </div>
         <p className={styles.emptyTitle}>
-          {mostrarHistorial 
+          {showHistory 
             ? 'No hay vehículos en el historial' 
             : 'No hay vehículos registrados para el día de hoy'
           }
         </p>
-        {!mostrarHistorial && (
+        {!showHistory && (
           <p className={styles.emptySubtitle}>
             Los vehículos aparecerán aquí una vez que los ingreses
           </p>
@@ -68,82 +82,107 @@ const VehicleTable = ({
 
   return (
     <div className={`${styles.tableSection} ${className}`} {...props}>
-      {/* Header de la tabla */}
+      {/* Table header */}
       <div className={styles.tableHeader}>
         <h3 className={styles.tableTitle}>
           <Clock className={styles.titleIcon} />
-          {mostrarHistorial ? 'Historial Completo' : `Vehículos del Día (${getCurrentDate()})`}
+          {showHistory ? 'Historial Completo' : `Vehículos del Día (${getCurrentDate()})`}
         </h3>
         <Button
           variant="purple"
-          onClick={() => setMostrarHistorial(!mostrarHistorial)}
+          onClick={handleToggleHistory}
           icon={<History size={16} />}
           className={styles.toggleButton}
         >
-          {mostrarHistorial ? 'Ver Activos' : 'Ver Historial'}
+          {showHistory ? 'Ver Activos' : 'Ver Historial'}
         </Button>
       </div>
 
-      {/* Tabla */}
+      {/* Table */}
       <div className={styles.tableContainer}>
-        {vehiculosAMostrar.length === 0 ? (
+        {vehiclesToShow.length === 0 ? (
           renderEmptyState()
         ) : (
-          <table className={styles.table}>
-            <thead className={styles.tableHead}>
-              <tr>
-                <th className={styles.th}>Placa</th>
-                <th className={styles.th}>Tipo</th>
-                <th className={styles.th}>Hora Ingreso</th>
-                <th className={styles.th}>Valor</th>
-                <th className={styles.th}>Factura</th>
-                <th className={styles.th}>Estado</th>
-                {mostrarHistorial && <th className={styles.th}>Hora Salida</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {vehiculosAMostrar.map((vehiculo) => (
-                <tr 
-                  key={vehiculo.id} 
-                  className={`${styles.tr} ${onVehicleClick ? styles.trClickable : ''}`}
-                  onClick={() => onVehicleClick && onVehicleClick(vehiculo)}
-                >
-                  <td className={`${styles.td} ${styles.tdPlaca}`}>
-                    {vehiculo.placa}
-                  </td>
-                  <td className={styles.td}>
-                    <div className={styles.vehicleType}>
-                      {renderVehicleIcon(vehiculo.tipoVehiculo)}
-                      <span className={styles.vehicleTypeName}>
-                        {vehiculo.tipoVehiculo.charAt(0).toUpperCase() + vehiculo.tipoVehiculo.slice(1)}
-                      </span>
-                    </div>
-                  </td>
-                  <td className={styles.td}>{vehiculo.horaIngreso}</td>
-                  <td className={`${styles.td} ${styles.tdValue}`}>
-                    {formatCurrency(vehiculo.valorMatricula)}
-                  </td>
-                  <td className={styles.td}>{vehiculo.numeroFactura}</td>
-                  <td className={styles.td}>
-                    <StatusBadge status={vehiculo.estado} />
-                  </td>
-                  {mostrarHistorial && (
-                    <td className={styles.td}>
-                      {vehiculo.horaSalida || 'N/A'}
-                    </td>
-                  )}
+          <>
+            <table className={styles.table}>
+              <thead className={styles.tableHead}>
+                <tr>
+                  <th className={styles.th}>Placa</th>
+                  <th className={styles.th}>Tipo</th>
+                  <th className={styles.th}>Hora Ingreso</th>
+                  <th className={styles.th}>Valor</th>
+                  <th className={styles.th}>Factura</th>
+                  <th className={styles.th}>Estado</th>
+                  {showHistory && <th className={styles.th}>Hora Salida</th>}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {paginatedVehicles.map((vehicle) => (
+                  <tr 
+                    key={vehicle.id} 
+                    className={`${styles.tr} ${onVehicleClick ? styles.trClickable : ''}`}
+                    onClick={() => onVehicleClick && onVehicleClick(vehicle)}
+                  >
+                    <td className={`${styles.td} ${styles.tdPlate}`}>
+                      {vehicle.plate}
+                    </td>
+                    <td className={styles.td}>
+                      <div className={styles.vehicleType}>
+                        {renderVehicleIcon(vehicle.vehicleType)}
+                        <span className={styles.vehicleTypeName}>
+                          {vehicle.vehicleType === 'car' ? 'Carro' : 'Moto'}
+                        </span>
+                      </div>
+                    </td>
+                    <td className={styles.td}>{vehicle.entryTime}</td>
+                    <td className={`${styles.td} ${styles.tdValue}`}>
+                      {formatCurrency(vehicle.registrationValue)}
+                    </td>
+                    <td className={styles.td}>{vehicle.invoiceNumber}</td>
+                    <td className={styles.td}>
+                      <StatusBadge status={vehicle.status} />
+                    </td>
+                    {showHistory && (
+                      <td className={styles.td}>
+                        {vehicle.exitTime || 'N/A'}
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Pagination */}
+            {vehiclesToShow.length > itemsPerPage && (
+              <div className={styles.pagination}>
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                  className={styles.paginationButton}
+                >
+                  Anterior
+                </button>
+                <span className={styles.paginationInfo}>
+                  Página {currentPage} de {totalPages}
+                </span>
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className={styles.paginationButton}
+                >
+                  Siguiente
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
 
-      {/* Footer con información adicional */}
-      {vehiculosAMostrar.length > 0 && (
+      {/* Footer with additional info */}
+      {vehiclesToShow.length > 0 && (
         <div className={styles.tableFooter}>
           <p className={styles.footerText}>
-            Mostrando <strong>{vehiculosAMostrar.length}</strong> {vehiculosAMostrar.length === 1 ? 'vehículo' : 'vehículos'}
+            Mostrando <strong>{paginatedVehicles.length}</strong> de <strong>{vehiclesToShow.length}</strong> {vehiclesToShow.length === 1 ? 'vehículo' : 'vehículos'}
           </p>
         </div>
       )}

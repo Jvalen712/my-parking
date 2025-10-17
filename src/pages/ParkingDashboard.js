@@ -9,96 +9,102 @@ import SummarySection from '../components/stats/SummarySection';
 import VehicleTable from '../components/tables/VehicleTable';
 import { Car, Calendar, History } from 'lucide-react';
 
-// Importar estilos globales
 import '../styles/variables.css';
 import '../styles/globals.css';
 import '../styles/components.css';
 
 const ParkingDashboard = () => {
+  // Hook for parking data management
   const {
-    vehiculosActivos,
-    historialVehiculos,
-    ingresarVehiculo,
-    sacarVehiculo,
-    getVehiculosHoy,
-    getEstadisticas
+    activeVehicles,
+    vehicleHistory,
+    addVehicle,
+    removeVehicle,
+    getTodaysVehicles,
+    getStatistics
   } = useParkingData();
 
+  // Hook for form management
   const {
     formData,
     errors,
     isSubmitting,
     handleInputChange,
-    handleIngresarVehiculo,
-    handleSacarVehiculo,
-    limpiarCasillas
+    handleAddVehicle,
+    handleRemoveVehicle,
+    clearForm
   } = useVehicleForm({
-    ingresarVehiculo,
-    sacarVehiculo,
-    onSuccess: (message) => alert(message),
-    onError: (message) => alert(message)
+    addVehicle,
+    removeVehicle,
+    onSuccess: (message) => {
+      alert(message);
+    },
+    onError: (message) => {
+      alert(message);
+    }
   });
 
-  const vehiculosHoy = getVehiculosHoy();
-  const estadisticas = getEstadisticas();
+  // Get calculated data
+  const todaysVehicles = getTodaysVehicles();
+  const statistics = getStatistics();
 
   return (
     <div className="app">
-      {/* Header con banner azul */}
+      {/* Header */}
       <Header />
 
-      {/* Contenedor principal */}
+      {/* Main container */}
       <div className="app-container">
         <div className="app-grid">
-          {/* Sidebar con formulario */}
+          {/* Sidebar with form */}
           <Sidebar>
             <VehicleForm
               formData={formData}
               errors={errors}
               isSubmitting={isSubmitting}
               onInputChange={handleInputChange}
-              onIngresarVehiculo={handleIngresarVehiculo}
-              onSacarVehiculo={handleSacarVehiculo}
-              onLimpiarCasillas={limpiarCasillas}
+              onAddVehicle={handleAddVehicle}
+              onRemoveVehicle={handleRemoveVehicle}
+              onClearForm={clearForm}
             />
           </Sidebar>
 
-          {/* Contenido principal */}
+          {/* Main content */}
           <main className="main-content">
-            {/* Tarjetas de estadísticas */}
+            {/* Statistics cards */}
             <div className="stats-grid">
               <StatCard
                 icon={<Car size={24} />}
                 label="Vehículos Activos"
-                value={estadisticas.totalActivos}
+                value={statistics.totalActive}
                 variant="blue"
               />
               
               <StatCard
                 icon={<Calendar size={24} />}
                 label="Ingresos Hoy"
-                value={estadisticas.totalHoy}
+                value={statistics.totalToday}
                 variant="green"
               />
               
               <StatCard
                 icon={<History size={24} />}
                 label="Historial Total"
-                value={estadisticas.totalHistorial}
+                value={statistics.totalHistory}
                 variant="purple"
               />
             </div>
 
-            {/* Tabla de vehículos */}
+            {/* Vehicle table */}
             <VehicleTable
-              vehiculosActivos={vehiculosActivos}
-              historialVehiculos={historialVehiculos}
+              activeVehicles={activeVehicles}
+              vehicleHistory={vehicleHistory}
             />
 
-            {/* Resumen final */}
+            {/* Final summary */}
             <SummarySection
-              vehiculosActivos={vehiculosActivos}
-              vehiculosHoy={vehiculosHoy}
+              activeVehicles={activeVehicles}
+              todaysVehicles={todaysVehicles}
             />
           </main>
         </div>
