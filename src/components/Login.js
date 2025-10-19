@@ -1,29 +1,39 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
 // Importa la imagen
 import backgroundImage from '../Image/parqueadero.jpg';
 
-function Login() {
+function Login({ onLogin }) { // Recibir onLogin como prop
   const [formData, setFormData] = useState({
-    text: '',
+    username: '', // Cambiado de 'text' a 'username'
     password: ''
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Limpiar error al escribir
+    if (error) setError('');
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Lógica de autenticación simple
-    if (formData.text && formData.password) {
-      setIsAuthenticated(true);
+    // Validar campos
+    if (!formData.username || !formData.password) {
+      setError('Por favor complete todos los campos');
+      return;
+    }
+
+    // Llamar a la función de login del App.js
+    const success = onLogin(formData);
+    
+    if (!success) {
+      setError('Credenciales inválidas');
     }
   };
 
@@ -43,36 +53,11 @@ function Login() {
   const formContainerStyle = {
     maxWidth: '400px',
     padding: '30px',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Fondo blanco semi-transparente
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: '10px',
     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-    backdropFilter: 'blur(10px)' // Efecto de desenfoque
+    backdropFilter: 'blur(10px)'
   };
-
-  if (isAuthenticated) {
-    return (
-      <div style={containerStyle}>
-        <div style={formContainerStyle}>
-          <div style={{ textAlign: 'center' }}>
-            <h2>Welcome mr.Juan Varco</h2>
-            <button 
-              onClick={() => setIsAuthenticated(false)}
-              style={{
-                padding: '10px 20px',
-                backgroundColor: '#dc3545',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={containerStyle}>
@@ -82,11 +67,11 @@ function Login() {
         
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '15px' }}>
-            <label>User:</label>
+            <label>Usuario:</label>
             <input
               type="text"
-              name="text"
-              value={formData.text}
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               required
               style={{ 
@@ -101,7 +86,7 @@ function Login() {
           </div>
 
           <div style={{ marginBottom: '15px' }}>
-            <label>Password:</label>
+            <label>Contraseña:</label>
             <div style={{ position: 'relative' }}>
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -137,6 +122,21 @@ function Login() {
             </div>
           </div>
 
+          {/* Mostrar mensaje de error */}
+          {error && (
+            <div style={{
+              padding: '10px',
+              marginBottom: '15px',
+              backgroundColor: '#fee2e2',
+              color: '#dc2626',
+              borderRadius: '4px',
+              fontSize: '14px',
+              textAlign: 'center'
+            }}>
+              {error}
+            </div>
+          )}
+
           <button 
             type="submit"
             style={{ 
@@ -150,7 +150,7 @@ function Login() {
               fontSize: '16px'
             }}
           >
-            Start
+            Iniciar Sesión
           </button>
         </form>
       </div>
