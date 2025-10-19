@@ -3,11 +3,13 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 24px;
+  padding: 28px 24px;
   transition: all 0.2s ease;
   border-left: 4px solid;
   position: relative;
   overflow: hidden;
+  min-height: 140px;
+  min-width: 274px;
 }
 
 .card::before {
@@ -28,7 +30,7 @@
 .content {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   position: relative;
   z-index: 1;
 }
@@ -38,9 +40,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
   flex-shrink: 0;
   transition: transform 0.2s ease;
 }
@@ -54,14 +56,15 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: 18px;
   color: #6b7280;
   margin: 0;
   font-weight: 500;
+  line-height: 1.4;
 }
 
 .value {
-  font-size: 28px;
+  font-size: 48px;
   font-weight: 700;
   color: #1f2937;
   margin: 0;
