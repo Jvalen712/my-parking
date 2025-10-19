@@ -94,14 +94,14 @@ const ParkingDashboard = ({ user, onLogout }) => {
           <main className="main-content">
             <div className="stats-grid">
               <StatCard
-                icon={<Car size={32} />}
+                icon={<Car size={40} />}
                 label="Vehículos Activos"
                 value={statistics.totalActive}
                 variant="blue"
               />
               
               <StatCard
-                icon={<Calendar size={32} />}
+                icon={<Calendar size={40} />}
                 label="Ingresos Hoy"
                 value={statistics.totalToday}
                 variant="green"
