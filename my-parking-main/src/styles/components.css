@@ -1,0 +1,64 @@
+/* Badges/Etiquetas compartidas */
+.badge-success {
+  background-color: #e6f9ec;   /* verde muy suave */
+  color: #14532d;              /* verde oscuro */
+  border-color: #22c55e;       /* verde acento */
+}
+
+.badge-danger {
+  background-color: #fee2e2;   /* rojo suave */
+  color: #991b1b;              /* rojo oscuro */
+  border-color: #ef4444;       /* rojo acento */
+}
+
+.badge-warning {
+  background-color: #fff8e1;   /* amarillo suave */
+  color: #92400e;              /* marrón oscuro */
+  border-color: #ffcc00;       /* amarillo acento */
+}
+
+.badge-info {
+  background-color: #f3f4f6;   /* gris claro */
+  color: #111;                 /* texto negro */
+  border-color: #9ca3af;       /* gris medio */
+}
+
+/* Divisores */
+.divider {
+  background-color: #e5e7eb;   /* gris claro */
+}
+
+.divider-vertical {
+  background-color: #e5e7eb;
+}
+
+/* Tooltips básicos */
+.tooltip::after {
+  background-color: #111;      /* negro */
+  color: #fff;                 /* texto blanco */
+}
+
+/* Mensajes de estado */
+.message-success {
+  background-color: #e6f9ec;
+  border-color: #22c55e;
+  color: #14532d;
+}
+
+.message-error {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.message-warning {
+  background-color: #fff8e1;
+  border-color: #ffcc00;
+  color: #92400e;
+}
+
+.message-info {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111;
+}

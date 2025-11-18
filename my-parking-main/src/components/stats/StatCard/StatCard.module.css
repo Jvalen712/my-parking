@@ -1,0 +1,72 @@
+/* Tarjeta base */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 22px 18px;              /* 👈 menos padding */
+  transition: all 0.2s ease;
+  border-left: 4px solid #ffcc00;  /* acento amarillo */
+  position: relative;
+  overflow: hidden;
+  min-height: 140px;               /* 👈 más baja */
+  min-width: 240px;                /* 👈 más angosta */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Contenido de la tarjeta */
+.content {
+  display: flex;
+  align-items: center;
+  gap: 20px;                       /* 👈 menos separación */
+  position: relative;
+  z-index: 1;
+}
+
+/* Icono */
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;                     /* 👈 más pequeño */
+  height: 60px;                    /* 👈 más pequeño */
+  border-radius: 12px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  background-color: #fff8e1;       /* amarillo suave */
+  color: #ffcc00;
+}
+
+/* Texto */
+.label {
+  font-size: 14px;                 /* 👈 más pequeño */
+  color: #111111;
+  margin: 0;
+  font-weight: 600;
+}
+
+.value {
+  font-size: 32px;                 /* 👈 más pequeño */
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+  line-height: 1;
+}
+
+.subtitle {
+  font-size: 11px;                 /* 👈 más pequeño */
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Variante amarilla especial para Vehículos Activos */
+.cardActive {
+  border-left-color: #ffcc00;
+}
+
+.iconActive {
+  background-color: #fff8e1;
+  color: #ffcc00;
+}

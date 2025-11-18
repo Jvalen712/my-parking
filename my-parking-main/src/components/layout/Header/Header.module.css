@@ -1,0 +1,218 @@
+/* Contenedor principal del header */
+.header {
+  background: linear-gradient(135deg, #ffcc00 0%, #c2c209 50%, #ffcc00 100%);
+  color: rgb(0, 0, 0);
+  padding: 24px 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.669),
+              0 2px 4px -1px rgba(0, 0, 0, 0.683);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+  pointer-events: none;
+}
+
+/* Container interno con max-width */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* Sección de marca y título */
+.brandSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+  color: rgb(0, 0, 0);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: -0.025em;
+}
+
+.subtitle {
+  font-size: 16px;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.9);
+  font-weight: 400;
+}
+
+/* Sección de información */
+.infoSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.dateTimeContainer {
+  display: flex;
+  align-items: center;
+}
+
+.dateTime {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.clockIcon {
+  color: rgba(0, 0, 0, 0.8);
+  flex-shrink: 0;
+}
+
+.timeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.time {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.date {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.8);
+  text-transform: capitalize;
+  line-height: 1;
+}
+
+/* Contenedor de acciones */
+.actionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botón de cerrar sesión */
+.logoutButton {
+  background: #000000;   /* negro */
+  color: #ffffff;        /* texto blanco */
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.logoutButton:hover {
+  background: #222222;   /* negro más claro */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.logoutButton:active {
+  transform: translateY(0);
+}
+
+/* Responsividad */
+@media (max-width: 968px) {
+  .container { padding: 0 16px; }
+  .title { font-size: 24px; }
+  .subtitle { font-size: 14px; }
+  .dateTime { padding: 10px 12px; }
+  .time { font-size: 16px; }
+}
+
+@media (max-width: 768px) {
+  .header { padding: 16px 0; }
+  .container {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  .brandSection { flex-direction: column; gap: 12px; }
+  .titleSection { align-items: center; }
+  .title { font-size: 22px; }
+  .subtitle { font-size: 13px; }
+  .infoSection { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 12px; }
+  .logoContainer { width: 48px; height: 48px; }
+  .logo { width: 24px; height: 24px; }
+  .title { font-size: 20px; }
+  .dateTime { padding: 8px 10px; }
+  .time { font-size: 14px; }
+  .date { font-size: 11px; }
+  .logoutButton { font-size: 13px; padding: 8px 12px; }
+}
+
+/* Variantes de tema */
+.headerDark {
+  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #374151 100%);
+}
+
+.headerLight {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  color: #1f2937;
+}
+
+.headerLight .logo,
+.headerLight .clockIcon,
+.headerLight .logoutButton {
+  color: #1f2937;
+}
+
+.headerLight .subtitle,
+.headerLight .date {
+  color: #64748b;
+}
+
+.headerLight .dateTime,
+.headerLight .logoContainer,
+.headerLight .logoutButton {
+  background: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.1);
+}

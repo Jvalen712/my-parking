@@ -1,0 +1,160 @@
+.formContainer {
+  position: sticky;
+  top: 24px;
+  background: #ffffff;             /* fondo blanco */
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  height: fit-content;
+  max-width: 50%;                  /* panel reducido */
+  margin-left: auto;               /* alineado a la derecha */
+  border-left: 4px solid #ffcc00;  /* acento amarillo */
+}
+
+.formTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111111;                  /* texto negro */
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+.titleIcon {
+  color: #ffcc00;                  /* icono amarillo */
+  flex-shrink: 0;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000000;                  /* texto negro */
+  text-align: right;
+  width: 100%;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border: 1px solid transparent;
+  font-size: 13px;
+  flex-direction: row-reverse;
+}
+
+.radioOption:hover {
+  background-color: #fff8e1;       /* amarillo suave */
+  border-color: #ffcc00;
+}
+
+.radioOption:has(.radioInput:checked) {
+  background-color: #fffbeb;       /* amarillo más claro */
+  border-color: #ffcc00;
+}
+
+.radioInput {
+  margin: 0;
+  accent-color: #ffcc00;           /* radios amarillos */
+}
+
+.radioIcon {
+  color: #ffcc00;
+  flex-shrink: 0;
+}
+
+.motorcycleIcon {
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.rate {
+  font-size: 10px;
+  color: #6b7280;
+  margin-right: 2px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+  margin-top: 4px;
+  width: 100%;
+  align-items: flex-end;
+}
+
+.buttonContainer button {
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Botones en modo parqueadero */
+.buttonContainer .btnIngresar {
+  background: #22c55e; /* verde */
+  color: #fff;
+}
+.buttonContainer .btnIngresar:hover {
+  background: #16a34a;
+}
+
+.buttonContainer .btnSacar {
+  background: #ef4444; /* rojo */
+  color: #fff;
+}
+.buttonContainer .btnSacar:hover {
+  background: #dc2626;
+}
+
+.buttonContainer .btnLimpiar {
+  background: #ffcc00; /* amarillo */
+  color: #111;
+}
+.buttonContainer .btnLimpiar:hover {
+  background: #ffd633;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .formContainer {
+    position: static;
+    margin-bottom: 24px;
+    max-width: 100%;
+    margin-left: 0;
+  }
+}

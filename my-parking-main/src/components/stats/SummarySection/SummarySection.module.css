@@ -1,0 +1,52 @@
+/* Contenedor principal */
+.summaryContainer {
+  background: linear-gradient(135deg, #111 0%, #222 50%, #333 100%); /* fondo oscuro */
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2),
+              0 4px 6px -2px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  color: #ffcc00; /* texto amarillo */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Patrón de fondo sutil */
+.summaryContainer::before {
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' ... %3E") repeat;
+  opacity: 0.05; /* patrón muy suave */
+}
+
+/* Header */
+.title {
+  color: #fff; /* blanco fuerte */
+}
+
+/* Grid de estadísticas */
+.statLabel {
+  color: #ffcc00; /* amarillo */
+}
+
+.statValue {
+  color: #fff; /* blanco */
+}
+
+/* Variantes de color */
+.summaryGreen {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); /* verde éxito */
+  color: #fff;
+}
+
+.summaryOrange {
+  background: linear-gradient(135deg, #ffcc00 0%, #eab308 100%); /* amarillo acento */
+  color: #111;
+}
+
+.summaryPurple {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); /* púrpura */
+  color: #fff;
+}
+
+.summaryDark {
+  background: linear-gradient(135deg, #111 0%, #222 100%); /* negro/gris */
+  color: #ffcc00;
+}

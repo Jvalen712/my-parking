@@ -1,0 +1,232 @@
+/* Contenedor principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Label del selector */
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0;
+}
+
+.labelRequired {
+  font-weight: 600;
+}
+
+.asterisk {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+/* Contenedor de opciones */
+.optionsContainer {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Cada opción individual */
+.option {
+  flex: 1;
+  min-width: 140px;
+  padding: 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.option:hover:not(.optionDisabled) {
+  border-color: #3b82f6;
+  background-color: #f8fafc;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.option:active:not(.optionDisabled) {
+  transform: translateY(0);
+}
+
+/* Opción seleccionada */
+.optionSelected {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.optionSelected::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m13.854 3.646-7.5 7.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6 10.293l7.146-7.147a.5.5 0 0 1 .708.708z'/%3e%3c/svg%3e");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Opción deshabilitada */
+.optionDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #f9fafb;
+}
+
+.optionDisabled:hover {
+  transform: none;
+  border-color: #e5e7eb;
+  box-shadow: none;
+}
+
+/* Input radio (oculto pero funcional) */
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Contenido de la opción */
+.optionContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.optionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.optionLabel {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.optionSelected .optionLabel {
+  color: #1e40af;
+}
+
+.optionDescription {
+  font-size: 12px;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.optionSelected .optionDescription {
+  color: #3730a3;
+}
+
+/* Iconos */
+.optionIcon {
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.motoIcon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Estados de focus para accesibilidad */
+.option:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.radioInput:focus {
+  outline: none;
+}
+
+/* Animaciones */
+@keyframes selectPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.optionSelected {
+  animation: selectPulse 0.3s ease-out;
+}
+
+/* Responsividad */
+@media (max-width: 640px) {
+  .optionsContainer {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .option {
+    min-width: auto;
+    padding: 12px;
+  }
+  
+  .optionContent {
+    gap: 6px;
+  }
+  
+  .optionHeader {
+    flex-direction: row;
+    gap: 12px;
+    text-align: left;
+  }
+  
+  .optionDescription {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .option {
+    padding: 16px;
+  }
+  
+  .optionLabel {
+    font-size: 15px;
+  }
+  
+  .optionDescription {
+    font-size: 11px;
+  }
+}
+
+/* Variante horizontal */
+.horizontal .optionsContainer {
+  flex-direction: row;
+}
+
+.horizontal .option {
+  flex: 1;
+}
+
+/* Variante vertical */
+.vertical .optionsContainer {
+  flex-direction: column;
+}
+
+.vertical .option {
+  width: 100%;
+}

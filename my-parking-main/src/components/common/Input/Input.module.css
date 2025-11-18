@@ -1,0 +1,128 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Reducido al 50% */
+  align-items: flex-end; /* Alineado a la derecha */
+  margin-left: auto; /* Empuja el contenedor a la derecha */
+}
+
+.label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+  font-family: inherit;
+  width: 100%;
+  text-align: right; /* Texto del label a la derecha */
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+  background-color: #ffffff;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.inputWithIcon {
+  padding-left: 36px;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  font-size: 13px;
+}
+
+.inputDisabled {
+  background-color: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.inputDisabled:focus {
+  border-color: #d1d5db;
+  box-shadow: none;
+}
+
+.errorMessage {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #dc2626;
+  font-weight: 500;
+  width: 100%;
+  text-align: right; /* Mensaje de error a la derecha */
+}
+
+.input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.input[type="number"] {
+  appearance: textfield;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type="time"] {
+  cursor: pointer;
+}
+
+.input:hover:not(:disabled):not(:focus) {
+  border-color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+  .inputContainer {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .input {
+    font-size: 16px;
+    padding: 12px 14px;
+  }
+  
+  .inputWithIcon {
+    padding-left: 42px;
+  }
+  
+  .inputIcon {
+    left: 12px;
+  }
+}

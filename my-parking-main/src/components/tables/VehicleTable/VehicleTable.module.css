@@ -1,0 +1,277 @@
+/* Sección de la tabla */
+.tableSection {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  overflow: hidden;
+  width: 225%;
+}
+
+/* Header de la tabla */
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tableTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111; /* negro fuerte */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.titleIcon {
+  color: #ffcc00; /* amarillo */
+  flex-shrink: 0;
+}
+
+.toggleButton {
+  background: #ffcc00;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: auto !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  margin-left: 0 !important;
+}
+
+.toggleButton:hover {
+  background: #ffd633;
+}
+
+/* Contenedor de la tabla con scroll */
+.tableContainer {
+  overflow-x: auto;
+  border-radius: 8px;
+  width: 100%;
+}
+
+/* Tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tableHead {
+  background-color: #fff8e1; /* amarillo muy suave */
+}
+
+.th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 700;
+  color: #111;
+  border-bottom: 2px solid #ffcc00;
+  white-space: nowrap;
+}
+
+.tr {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tr:hover {
+  background-color: rgba(255, 204, 0, 0.12);
+}
+
+.trClickable {
+  cursor: pointer;
+}
+
+.trClickable:hover {
+  background-color: rgba(255, 204, 0, 0.2);
+}
+
+.td {
+  padding: 12px 16px;
+  color: #333;
+  vertical-align: middle;
+}
+
+.tdPlaca {
+  font-weight: 700;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.tdValue {
+  font-weight: 700;
+  color: #ffcc00;
+}
+
+/* Tipo de vehículo */
+.vehicle_type {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vehicleIcon {
+  color: #111;
+  flex-shrink: 0;
+}
+
+.motoIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.vehicle_typeName {
+  text-transform: capitalize;
+  color: #111;
+  font-weight: 600;
+}
+
+/* Estado vacío */
+.emptyState {
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.emptyIcon {
+  color: #ffcc00;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.emptyTitle {
+  color: #111;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.emptySubtitle {
+  color: #666;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Footer de la tabla */
+.tableFooter {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footerText {
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+}
+
+.footerText strong {
+  color: #111;
+  font-weight: 700;
+}
+
+/* Scrollbar personalizado */
+.tableContainer::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+  background: #ffcc00;
+  border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+  background: #ffd633;
+}
+
+/* Responsividad */
+@media (max-width: 968px) {
+  .tableSection {
+    padding: 20px;
+  }
+  .tableTitle {
+    font-size: 18px;
+  }
+  .th, .td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableSection {
+    padding: 16px;
+    border-radius: 8px;
+  }
+  .tableHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .toggleButton {
+    width: 100% !important;
+  }
+  .table {
+    font-size: 12px;
+  }
+  .th, .td {
+    padding: 8px 10px;
+  }
+  .emptyState {
+    padding: 48px 16px;
+  }
+  .emptyIcon {
+    margin-bottom: 12px;
+  }
+  .emptyTitle {
+    font-size: 16px;
+  }
+  .emptySubtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 640px) {
+  .table {
+    min-width: 600px;
+  }
+  .tableContainer {
+    margin: 0 -16px;
+    padding: 0 16px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tr {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Estados de carga */
+.tableLoading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.tableLoading .table {
+  filter: blur(2px);
+}
