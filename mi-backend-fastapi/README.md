@@ -1,8 +1,8 @@
 
 ```markdown
-# My Parking — Backend FastAPI
+# Parking UC — Backend FastAPI
 
-Este es el backend del sistema My Parking, desarrollado con FastAPI y SQLAlchemy.
+Este es el backend del sistema Parking UC, desarrollado con FastAPI y SQLAlchemy.
 
 ## Tecnologías
 

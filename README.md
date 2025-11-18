@@ -1,6 +1,6 @@
-# My Parking — Sistema de Gestión de Parqueadero
+# Parking UC — Sistema de Gestión de Parqueadero
 
-**My Parking** es una aplicación web para la gestión de parqueaderos, compuesta por un **frontend en React** y un **backend en FastAPI**.  
+**Parking UC** es una aplicación web para la gestión de parqueaderos, compuesta por un **frontend en React** y un **backend en FastAPI**.  
 Permite registrar entradas y salidas de vehículos, generar facturas, visualizar estadísticas en tiempo real y consultar historial de actividad.
 
 ## Tecnologías utilizadas

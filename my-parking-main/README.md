@@ -1,9 +1,9 @@
 📄 README.md para el frontend (dentro de `my-parking-main/`)
 
 ```markdown
-# My Parking — Frontend React
+# Parking UC — Frontend React
 
-Este es el frontend del sistema My Parking, desarrollado con React y Vite.
+Este es el frontend del sistema Parking UC, desarrollado con React y Vite.
 
 ## Instalación
 
